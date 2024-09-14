@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Scrapbook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            height: 500px;
+        }
+        .carousel-slides {
+            display: flex;
+            transition: transform 1s ease;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            height: 500px;
+            transition: 20s;
+        }
+        /* Parallax Effect */
+        .parallax {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        /* Sticky Navbar */
+        .sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.5s ease;
+        }
+        /* Hover Effect for Gallery */
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="bg-transparent fixed w-full py-4 transition duration-500 ease-in-out">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-3xl font-bold text-pink-300">Scrapbook</div>
+            <div class="space-x-6 hidden lg:flex text-white">
+                <a href="#home" class="hover:text-pink-400 transition duration-300 font-sans">Home</a>
+                <a href="#gallery" class="hover:text-pink-400 transition duration-300">Gallery</a>
+                <a href="#about" class="hover:text-pink-400 transition duration-300">About</a>
+                <a href="#contact" class="hover:text-pink-400 transition duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero h-screen bg-cover bg-center relative">
+        <img src="WhatsApp Image 2024-09-11 at 13.35.45_040011e8.jpg" class="w-full h-full object-cover rounded-lg shadow-lg">
+        <div class="absolute inset-0  flex justify-center items-center">
+            <div class="text-center text-white">
+                <h1 class="text-6xl font-bold animate-bounce">Capture Your Memories</h1>
+                <p class="mt-4 text-xl">Create a digital scrapbook of your most cherished moments</p>
+                <a href="#gallery" class="mt-8 inline-block bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-lg transition duration-300">View Gallery</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Section -->
+    <section class="parallax h-screen bg-fixed">
+        <img src="WhatsApp Image 2024-09-14 at 11.31.36_6c8287d3.jpg" class="w-full h-full object-cover rounded-lg shadow-lg">
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 bg-white">
+        <div class="container mx-auto text-center">
+            <h2 class="text-5xl font-bold mb-12">Photo Gallery</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="relative gallery-item">
+                    <img src="WhatsApp Image 2024-09-14 at 10.07.23_86b8af3f.jpg" class="w-full h-72 object-cover rounded-lg shadow-lg">
+                    <div class="overlay">Memory 1</div>
+                </div>
+                <div class="relative gallery-item">
+                    <img src="WhatsApp Image 2024-09-14 at 10.07.24_12539f18.jpg" class="w-full h-72 object-cover rounded-lg shadow-lg">
+                    <div class="overlay">Memory 2</div>
+                </div>
+                <div class="relative gallery-item">
+                    <img src="WhatsApp Image 2024-09-11 at 13.35.45_040011e8.jpg" class="w-300 h-fullobject-cover rounded-lg shadow-lg">
+                    <div class="overlay">Memory 3</div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-pink-200">
+        <div class="container mx-auto text-center">
+            <h2 class="text-5xl font-bold mb-12">About Sezila Dinda Aurel</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Our scrapbook helps you cherish and revisit your fondest memories. Capture moments, upload them to the cloud, and relive the best times of your life anytime, anywhere.</p>
+        </div>
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="carousel-container bg-white text-white">
+        <div class="carousel-slides" id="carouselSlides">
+            <div class="carousel-slide" style=" background-size: cover; background-position: center;">
+                <img src="WhatsApp Image 2024-09-14 at 10.07.23_86b8af3f.jpg" class="w-full h-full object-cover rounded-lg shadow-lg"S>
+            </div>
+        <div class="absolute top-0 bottom-0 left-0 flex items-center">
+            <button id="prevSlide" class="bg-black bg-opacity-50 p-3">&lt;</button>
+        </div>
+        <div class="absolute top-0 bottom-0 right-0 flex items-center">
+            <button id="nextSlide" class="bg-black bg-opacity-50 p-3">&gt;</button>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-pink-300 text-white py-8">
+        <div class="container mx-auto text-center">
+            <p class="text-lg">&copy; 2024 Professional Scrapbook. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sticky Navbar
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white', 'shadow-lg');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.add('bg-transparent');
+                navbar.classList.remove('bg-white', 'shadow-lg');
+            }
+        });
+
+        // Carousel JS
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('nextSlide').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        });
+
+        document.getElementById('prevSlide').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        });
+
+        function updateCarousel() {
+            const carouselSlides = document.getElementById('carouselSlides');
+            carouselSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        // Auto-slide every 5 seconds
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }, 5000);
+    </script>
+
+</body>
+</html>
